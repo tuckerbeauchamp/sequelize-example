@@ -1,4 +1,5 @@
 const { Driver } = require("./models");
+const connection = require("./config/connection");
 
 const app = require("express")();
 
@@ -12,4 +13,6 @@ app.get("/api/drivers", async function (req, res) {
   res.json(await Driver.findAll());
 });
 
-app.listen(PORT, () => console.log("App listening on port " + PORT));
+connection.sync().then(function () {
+  app.listen(PORT, () => console.log("App listening on port " + PORT));
+});
